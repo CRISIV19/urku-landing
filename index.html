@@ -4,109 +4,375 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Urku — App de transporte en Pucallpa</title>
-  <meta name="description" content="Urku es la app de transporte urbano para Pucallpa y Ucayali. Conectamos pasajeros con conductores de forma segura, rapida y confiable." />
+  <meta name="description" content="Urku es la app de transporte urbano para Pucallpa y Ucayali. Planes desde S/15. Paga con Yape." />
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{--purple:#6B21A8;--purple-mid:#9333EA;--purple-light:#F3E8FF;--green:#22C55E;--text:#1A1A1A;--text-sec:#555}
+    :root{--purple:#6B21A8;--purple-mid:#9333EA;--purple-light:#F3E8FF;--green:#22C55E;--text:#1A1A1A;--text-sec:#555;--border:#E5E5E5}
     body{font-family:'Segoe UI',system-ui,sans-serif;background:#fafafa;color:var(--text)}
-    nav{background:white;border-bottom:1px solid #eee;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    a{color:var(--purple)}
+
+    /* NAV */
+    nav{background:white;border-bottom:1px solid var(--border);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;gap:12px;flex-wrap:wrap}
     .nav-brand{display:flex;align-items:center;gap:10px}
     .nav-brand img{width:36px;height:36px;border-radius:8px}
     .nav-brand span{font-size:20px;font-weight:800;color:var(--purple)}
-    nav a{background:var(--purple);color:white;text-decoration:none;padding:9px 20px;border-radius:10px;font-weight:700;font-size:14px}
-    .hero{background:linear-gradient(135deg,var(--purple) 0%,var(--purple-mid) 100%);color:white;text-align:center;padding:80px 24px 100px}
-    .hero-logo{width:88px;height:88px;border-radius:22px;border:3px solid rgba(255,255,255,.3);margin:0 auto 24px;display:block}
-    .hero h1{font-size:clamp(28px,6vw,52px);font-weight:900;margin-bottom:16px;line-height:1.15}
-    .hero p{font-size:clamp(15px,2.5vw,18px);opacity:.88;max-width:540px;margin:0 auto 32px;line-height:1.6}
-    .badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);padding:8px 18px;border-radius:100px;font-size:13px;font-weight:600}
+    .nav-links{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+    .nav-links a{text-decoration:none;color:var(--text-sec);font-size:14px;font-weight:500}
+    .nav-links a:hover{color:var(--purple)}
+    .nav-btn{background:var(--purple);color:white!important;padding:9px 18px;border-radius:10px;font-weight:700!important;font-size:14px}
+
+    /* HERO */
+    .hero{background:linear-gradient(135deg,var(--purple) 0%,var(--purple-mid) 100%);color:white;text-align:center;padding:72px 24px 90px}
+    .hero-logo{width:80px;height:80px;border-radius:20px;border:3px solid rgba(255,255,255,.3);margin:0 auto 20px;display:block}
+    .hero h1{font-size:clamp(26px,5vw,48px);font-weight:900;margin-bottom:14px;line-height:1.15}
+    .hero p{font-size:clamp(14px,2.5vw,17px);opacity:.88;max-width:520px;margin:0 auto 28px;line-height:1.6}
+    .badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);padding:7px 16px;border-radius:100px;font-size:13px;font-weight:600}
     .badge-dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
-    .section{padding:70px 24px;max-width:1000px;margin:0 auto}
-    .section-title{text-align:center;font-size:clamp(22px,4vw,34px);font-weight:800;margin-bottom:10px}
-    .section-sub{text-align:center;color:var(--text-sec);margin-bottom:44px;font-size:16px}
-    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
-    .card{background:white;border-radius:18px;padding:28px 24px;border:1px solid #eee;box-shadow:0 2px 16px rgba(107,33,168,.06)}
-    .card-icon{width:52px;height:52px;border-radius:14px;background:var(--purple-light);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:16px}
-    .card h3{font-size:17px;font-weight:700;margin-bottom:8px}
-    .card p{color:var(--text-sec);font-size:14px;line-height:1.6}
-    .stats-bar{background:linear-gradient(135deg,var(--purple) 0%,var(--purple-mid) 100%);padding:50px 24px}
-    .stats-inner{max-width:800px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:24px;text-align:center}
-    .stat-val{font-size:34px;font-weight:900;color:white}
-    .stat-lbl{font-size:13px;color:rgba(255,255,255,.75);margin-top:4px}
-    .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px}
-    .step{text-align:center}
-    .step-num{width:48px;height:48px;border-radius:50%;background:var(--purple);color:white;font-size:20px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
-    .step h4{font-size:16px;font-weight:700;margin-bottom:6px}
-    .step p{color:var(--text-sec);font-size:14px;line-height:1.5}
-    .cta{background:var(--purple-light);text-align:center;padding:70px 24px}
-    .cta h2{font-size:clamp(22px,4vw,34px);font-weight:800;margin-bottom:12px}
-    .cta p{color:var(--text-sec);font-size:16px;margin-bottom:32px}
-    .cta-btn{display:inline-block;background:var(--purple);color:white;text-decoration:none;padding:16px 40px;border-radius:14px;font-size:16px;font-weight:700;box-shadow:0 8px 24px rgba(107,33,168,.3)}
-    footer{background:#1A1A1A;color:#aaa;text-align:center;padding:32px 24px;font-size:13px;line-height:1.9}
+
+    /* SECCIONES */
+    .section{padding:64px 24px;max-width:1040px;margin:0 auto}
+    .section-title{text-align:center;font-size:clamp(20px,4vw,32px);font-weight:800;margin-bottom:8px}
+    .section-sub{text-align:center;color:var(--text-sec);margin-bottom:40px;font-size:15px}
+
+    /* PLANES (productos con precio) */
+    .planes{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+    .plan-card{background:white;border-radius:18px;padding:24px 20px;border:1.5px solid var(--border);box-shadow:0 2px 16px rgba(107,33,168,.06);display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden}
+    .plan-card.popular::before{content:"MAS POPULAR";position:absolute;top:14px;right:-22px;background:var(--green);color:white;font-size:10px;font-weight:700;padding:3px 32px;transform:rotate(45deg)}
+    .plan-icon{font-size:32px}
+    .plan-name{font-size:18px;font-weight:800;color:var(--text)}
+    .plan-price{font-size:28px;font-weight:900;color:var(--purple)}
+    .plan-price span{font-size:14px;font-weight:500;color:var(--text-sec)}
+    .plan-desc{font-size:13px;color:var(--text-sec);line-height:1.5;flex:1}
+    .plan-btn{display:block;text-align:center;background:var(--purple);color:white;text-decoration:none;padding:11px;border-radius:10px;font-weight:700;font-size:14px;margin-top:4px;cursor:pointer;border:none;width:100%}
+    .plan-btn:hover{background:var(--purple-mid)}
+
+    /* CONTACTO */
+    .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+    .contact-card{background:white;border-radius:14px;padding:20px;border:1px solid var(--border);display:flex;gap:14px;align-items:flex-start}
+    .contact-icon{font-size:24px;margin-top:2px}
+    .contact-card h4{font-size:14px;font-weight:700;margin-bottom:4px}
+    .contact-card p{font-size:13px;color:var(--text-sec);line-height:1.5}
+
+    /* LEGAL */
+    .legal-section{background:white;border-top:1px solid var(--border);padding:56px 24px}
+    .legal-inner{max-width:860px;margin:0 auto}
+    .legal-title{font-size:22px;font-weight:800;margin-bottom:16px;color:var(--purple)}
+    .legal-text{font-size:13px;color:var(--text-sec);line-height:1.8;margin-bottom:32px}
+    .legal-text h4{font-size:14px;font-weight:700;color:var(--text);margin:18px 0 6px}
+
+    /* LIBRO RECLAMACIONES */
+    .libro{background:var(--purple-light);border-radius:16px;padding:28px;margin-bottom:32px;border:1.5px solid #DDD6FE}
+    .libro h3{font-size:18px;font-weight:800;color:var(--purple);margin-bottom:6px}
+    .libro p{font-size:13px;color:var(--text-sec);margin-bottom:20px;line-height:1.6}
+    .libro form{display:grid;gap:12px}
+    .libro input,.libro select,.libro textarea{width:100%;padding:11px 14px;border:1.5px solid #C4B5FD;border-radius:10px;font-size:13px;font-family:inherit;background:white;color:var(--text)}
+    .libro input:focus,.libro select:focus,.libro textarea:focus{outline:none;border-color:var(--purple)}
+    .libro .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .libro textarea{height:90px;resize:vertical}
+    .libro button{background:var(--purple);color:white;border:none;padding:12px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit}
+    .libro button:hover{background:var(--purple-mid)}
+    #libro-ok{display:none;color:#16A34A;font-weight:700;font-size:14px;text-align:center;padding:10px}
+
+    /* STATS */
+    .stats-bar{background:linear-gradient(135deg,var(--purple) 0%,var(--purple-mid) 100%);padding:44px 24px}
+    .stats-inner{max-width:800px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:20px;text-align:center}
+    .stat-val{font-size:30px;font-weight:900;color:white}
+    .stat-lbl{font-size:12px;color:rgba(255,255,255,.75);margin-top:3px}
+
+    /* FOOTER */
+    footer{background:#1A1A1A;color:#aaa;text-align:center;padding:28px 24px;font-size:12px;line-height:2}
     footer strong{color:white}
     footer a{color:#aaa}
+
+    /* MODAL */
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center;padding:20px}
+    .modal-overlay.open{display:flex}
+    .modal{background:white;border-radius:20px;padding:32px;max-width:460px;width:100%;position:relative}
+    .modal h3{font-size:20px;font-weight:800;margin-bottom:8px}
+    .modal p{font-size:13px;color:var(--text-sec);margin-bottom:20px;line-height:1.6}
+    .modal-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--text-sec)}
+    .modal input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;margin-bottom:12px}
+    .modal input:focus{outline:none;border-color:var(--purple)}
+    .modal-btn{width:100%;background:var(--purple);color:white;border:none;padding:13px;border-radius:10px;font-weight:700;font-size:15px;cursor:pointer;font-family:inherit}
+    .modal-note{font-size:12px;color:var(--text-sec);text-align:center;margin-top:10px}
+
+    @media(max-width:520px){
+      nav{padding:12px 16px}
+      .nav-links{display:none}
+      .libro .form-row{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-brand">
-    <img src="data:image/png;base64,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" alt="Urku logo" />
-    <span>Urku</span>
-  </div>
-  <a href="https://play.google.com/store" target="_blank">Descargar app</a>
-</nav>
-
-<section class="hero">
-  <img class="hero-logo" src="data:image/png;base64,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" alt="Urku" />
-  <h1>El transporte de Pucallpa,<br>en tu celular</h1>
-  <p>Urku conecta pasajeros y conductores en Pucallpa y Ucayali de forma segura, rapida y transparente.</p>
-  <div class="badge"><span class="badge-dot"></span>&nbsp;Disponible en Android</div>
-</section>
-
-<div class="section">
-  <h2 class="section-title">&#x00BF;Por que Urku?</h2>
-  <p class="section-sub">Una plataforma disenada para la realidad de Pucallpa</p>
-  <div class="cards">
-    <div class="card"><div class="card-icon">&#128205;</div><h3>Viajes en tiempo real</h3><p>Rastrea tu conductor en el mapa y sigue el recorrido de principio a fin.</p></div>
-    <div class="card"><div class="card-icon">&#128156;</div><h3>Pago con Yape</h3><p>Recarga tu saldo con Yape y paga tus viajes sin efectivo, de forma instantanea.</p></div>
-    <div class="card"><div class="card-icon">&#128737;</div><h3>Conductores verificados</h3><p>Todos los conductores pasan por verificacion de identidad antes de operar.</p></div>
-    <div class="card"><div class="card-icon">&#11088;</div><h3>Calificaciones</h3><p>Califica tu viaje y mantena la calidad del servicio en toda la plataforma.</p></div>
-    <div class="card"><div class="card-icon">&#128640;</div><h3>Sin comisiones ocultas</h3><p>El precio que ves es el que pagas. Sin sorpresas ni cobros adicionales.</p></div>
-    <div class="card"><div class="card-icon">&#128241;</div><h3>Facil de usar</h3><p>Interfaz disenada para todos. Pide tu viaje en menos de 30 segundos.</p></div>
+<!-- MODAL COMPRA -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&#x2715;</button>
+    <h3 id="modal-title">Activar Plan</h3>
+    <p>Descarga la app Urku y activa tu plan directo desde la aplicacion con tu celular Yape.</p>
+    <div style="background:#F3E8FF;border-radius:12px;padding:16px;margin-bottom:16px">
+      <div style="font-size:13px;color:#4A1D96;font-weight:600;margin-bottom:8px">&#128241; Pasos para comprar:</div>
+      <div style="font-size:13px;color:#555;line-height:1.8">1. Descarga Urku en Google Play<br>2. Regístrate como conductor<br>3. Ve a Billetera → Ver Planes<br>4. Selecciona tu plan y paga con Yape</div>
+    </div>
+    <a href="https://play.google.com/store" target="_blank" class="modal-btn" style="display:block;text-align:center;text-decoration:none;padding:13px;border-radius:10px;background:#6B21A8;color:white;font-weight:700;font-size:15px">Descargar Urku en Google Play</a>
+    <p class="modal-note">&#128274; Pago seguro procesado por Culqi &middot; Yape</p>
   </div>
 </div>
 
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <img src="data:image/png;base64,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" alt="Urku" />
+    <span>Urku</span>
+  </div>
+  <div class="nav-links">
+    <a href="#planes">Planes</a>
+    <a href="#contacto">Contacto</a>
+    <a href="#terminos">T&eacute;rminos</a>
+    <a href="#reclamaciones">Reclamaciones</a>
+    <a href="https://play.google.com/store" target="_blank" class="nav-btn">Descargar app</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-logo" src="data:image/png;base64,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" alt="Urku" />
+  <h1>El transporte de Pucallpa,<br>en tu celular</h1>
+  <p>Conectamos conductores y pasajeros en Pucallpa y Ucayali. Planes desde S/ 15. Paga con Yape al instante.</p>
+  <div class="badge"><span class="badge-dot"></span>&nbsp;Disponible en Android &mdash; Google Play</div>
+</section>
+
+<!-- PLANES / SERVICIOS -->
+<div class="section" id="planes">
+  <h2 class="section-title">Nuestros Planes y Servicios</h2>
+  <p class="section-sub">Elige el plan que mejor se adapte a tu actividad como conductor</p>
+  <div class="planes">
+
+    <div class="plan-card">
+      <div class="plan-icon">&#128641;</div>
+      <div class="plan-name">Plan Diario</div>
+      <div class="plan-price">S/ 5 <span>/ dia</span></div>
+      <div class="plan-desc">Acceso por 24 horas con 0% de comision por viaje. Ideal para conductores ocasionales.</div>
+      <button class="plan-btn" onclick="openModal('Plan Diario — S/ 5')">Comprar ahora</button>
+    </div>
+
+    <div class="plan-card popular">
+      <div class="plan-icon">&#11088;</div>
+      <div class="plan-name">Plan Semanal</div>
+      <div class="plan-price">S/ 15 <span>/ semana</span></div>
+      <div class="plan-desc">7 dias de acceso completo con 0% de comision. El mas elegido por conductores activos.</div>
+      <button class="plan-btn" onclick="openModal('Plan Semanal — S/ 15')">Comprar ahora</button>
+    </div>
+
+    <div class="plan-card">
+      <div class="plan-icon">&#128197;</div>
+      <div class="plan-name">Plan Mensual</div>
+      <div class="plan-price">S/ 45 <span>/ mes</span></div>
+      <div class="plan-desc">30 dias con 0% de comision. El mejor valor para conductores de tiempo completo en Pucallpa.</div>
+      <button class="plan-btn" onclick="openModal('Plan Mensual — S/ 45')">Comprar ahora</button>
+    </div>
+
+    <div class="plan-card">
+      <div class="plan-icon">&#128179;</div>
+      <div class="plan-name">Recarga S/ 10</div>
+      <div class="plan-price">S/ 10 <span>saldo</span></div>
+      <div class="plan-desc">Recarga tu billetera Urku con S/ 10 via Yape. Usa el saldo para pagar comisiones por viaje.</div>
+      <button class="plan-btn" onclick="openModal('Recarga S/ 10')">Recargar</button>
+    </div>
+
+    <div class="plan-card">
+      <div class="plan-icon">&#128176;</div>
+      <div class="plan-name">Recarga S/ 30</div>
+      <div class="plan-price">S/ 30 <span>saldo</span></div>
+      <div class="plan-desc">Recarga tu billetera Urku con S/ 30 via Yape. Paga comisiones del 10% por cada viaje realizado.</div>
+      <button class="plan-btn" onclick="openModal('Recarga S/ 30')">Recargar</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- STATS -->
 <div class="stats-bar">
   <div class="stats-inner">
     <div><div class="stat-val">Pucallpa</div><div class="stat-lbl">Ciudad de operacion</div></div>
+    <div><div class="stat-val">0%</div><div class="stat-lbl">Comision con plan activo</div></div>
     <div><div class="stat-val">Yape</div><div class="stat-lbl">Pago integrado</div></div>
-    <div><div class="stat-val">Android</div><div class="stat-lbl">Plataforma</div></div>
     <div><div class="stat-val">24/7</div><div class="stat-lbl">Disponibilidad</div></div>
   </div>
 </div>
 
-<div class="section">
-  <h2 class="section-title">&#x00BF;Como funciona?</h2>
-  <p class="section-sub">Tres pasos para moverte por Pucallpa</p>
-  <div class="steps">
-    <div class="step"><div class="step-num">1</div><h4>Descarga Urku</h4><p>Disponible gratis en Google Play Store para dispositivos Android.</p></div>
-    <div class="step"><div class="step-num">2</div><h4>Solicita tu viaje</h4><p>Ingresa tu destino y un conductor verificado llegara a recogerte.</p></div>
-    <div class="step"><div class="step-num">3</div><h4>Viaja seguro</h4><p>Sigue tu ruta en tiempo real y paga con Yape al terminar.</p></div>
+<!-- CONTACTO -->
+<div class="section" id="contacto">
+  <h2 class="section-title">Contacto</h2>
+  <p class="section-sub">Estamos disponibles para ayudarte</p>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-icon">&#128241;</div>
+      <div>
+        <h4>Celular / WhatsApp</h4>
+        <p>964 891 664<br>Lunes a Sabado, 8am – 8pm</p>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">&#128140;</div>
+      <div>
+        <h4>Correo electronico</h4>
+        <p><a href="mailto:konguru.73@gmail.com">konguru.73@gmail.com</a><br>Respondemos en menos de 24h</p>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">&#128205;</div>
+      <div>
+        <h4>Direccion</h4>
+        <p>Pucallpa, Ucayali, Peru<br>Operaciones en toda la ciudad</p>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">&#128241;</div>
+      <div>
+        <h4>Descarga la app</h4>
+        <p><a href="https://play.google.com/store" target="_blank">Google Play Store</a><br>Disponible para Android</p>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="cta">
-  <h2>&#x00BF;Listo para moverte con Urku?</h2>
-  <p>Descarga la app y empieza a viajar hoy mismo por Pucallpa.</p>
-  <a class="cta-btn" href="https://play.google.com/store" target="_blank">Descargar en Google Play</a>
+<!-- LEGAL -->
+<div class="legal-section" id="terminos">
+  <div class="legal-inner">
+
+    <h2 class="legal-title">&#128196; Terminos y Condiciones</h2>
+    <div class="legal-text">
+      <h4>1. Descripcion del servicio</h4>
+      Urku es una plataforma tecnologica de transporte urbano que conecta conductores independientes con pasajeros en la ciudad de Pucallpa, region Ucayali, Peru. Urku actua como intermediario tecnologico y no es empresa de transporte.
+
+      <h4>2. Registro y uso</h4>
+      El conductor debe registrarse con datos verídicos, contar con licencia de conducir vigente y vehi­culo en buen estado. El uso de la plataforma implica la aceptacion de estos terminos.
+
+      <h4>3. Planes y comisiones</h4>
+      Los conductores pueden adquirir planes semanales o mensuales que les otorgan 0% de comision por viaje. Sin plan activo, se aplica una comision del 10% por viaje completado, descontada del saldo de la billetera Urku.
+
+      <h4>4. Pagos</h4>
+      Los pagos se realizan a traves de la billetera Urku, recargada mediante Yape a traves del procesador de pagos Culqi. Urku no almacena datos de tarjetas de credito.
+
+      <h4>5. Cancelaciones</h4>
+      Los conductores pueden cancelar viajes antes de iniciar el recorrido sin penalidad. Cancelaciones reiteradas pueden resultar en suspension temporal de la cuenta.
+
+      <h4>6. Modificaciones</h4>
+      Urku se reserva el derecho de modificar estos terminos. Los cambios seran notificados con al menos 7 dias de anticipacion a traves de la aplicacion.
+
+      <h4>7. Jurisdiccion</h4>
+      Estos terminos se rigen por las leyes de la Republica del Peru. Cualquier controversia sera resuelta en los tribunales de Pucallpa, Ucayali.
+    </div>
+
+    <h2 class="legal-title">&#128260; Politica de Cambios y Devoluciones</h2>
+    <div class="legal-text">
+      <h4>Planes</h4>
+      Los planes adquiridos (Diario, Semanal, Mensual) no son reembolsables una vez activados en la cuenta del conductor. En caso de error tecnico imputable a Urku, se aplicara un credito equivalente al valor del plan.
+
+      <h4>Recargas de saldo</h4>
+      El saldo recargado en la billetera Urku no es reembolsable en efectivo. Si la recarga no se acredito correctamente por falla tecnica, el conductor debe comunicarse dentro de las 24 horas al correo konguru.73@gmail.com adjuntando el comprobante de Yape.
+
+      <h4>Proceso de solicitud</h4>
+      Para solicitar una devolucion por falla tecnica: (1) Enviar correo a konguru.73@gmail.com con asunto "Devolucion", (2) adjuntar captura del comprobante de pago, (3) indicar el numero de celular registrado en Urku. La respuesta se emite en un plazo maximo de 72 horas habiles.
+    </div>
+
+    <!-- LIBRO DE RECLAMACIONES -->
+    <div class="libro" id="reclamaciones">
+      <h3>&#128214; Libro de Reclamaciones</h3>
+      <p>Conforme a la Ley N.&deg; 29571 (Codigo de Proteccion y Defensa del Consumidor) y los lineamientos de INDECOPI, ponemos a tu disposicion el Libro de Reclamaciones virtual.</p>
+      <form id="libro-form" onsubmit="enviarReclamo(event)">
+        <div class="form-row">
+          <input type="text" placeholder="Nombres y apellidos *" required id="lb-nombre" />
+          <input type="text" placeholder="DNI *" required id="lb-dni" maxlength="8" />
+        </div>
+        <div class="form-row">
+          <input type="email" placeholder="Correo electronico *" required id="lb-email" />
+          <input type="tel" placeholder="Celular *" required id="lb-cel" />
+        </div>
+        <select required id="lb-tipo">
+          <option value="">Tipo de registro *</option>
+          <option value="queja">Queja (no involucra dinero)</option>
+          <option value="reclamo">Reclamo (involucra dinero o bien contratado)</option>
+        </select>
+        <select required id="lb-servicio">
+          <option value="">Servicio relacionado *</option>
+          <option value="plan">Plan (Diario / Semanal / Mensual)</option>
+          <option value="recarga">Recarga de saldo</option>
+          <option value="viaje">Viaje</option>
+          <option value="app">Funcionamiento de la app</option>
+          <option value="otro">Otro</option>
+        </select>
+        <textarea placeholder="Describe detalladamente tu queja o reclamo *" required id="lb-detalle"></textarea>
+        <textarea placeholder="Pedido o solucion que solicitas *" required id="lb-pedido" style="height:70px"></textarea>
+        <button type="submit">Registrar en el Libro de Reclamaciones</button>
+        <div id="libro-ok">&#9989; Tu reclamo ha sido registrado. Te responderemos a tu correo en un plazo maximo de 15 dias habiles conforme a la ley.</div>
+      </form>
+    </div>
+
+  </div>
 </div>
 
+<!-- FOOTER -->
 <footer>
   <strong>Urku</strong> &mdash; App de transporte urbano<br>
-  Pucallpa, Ucayali, Peru<br>
-  Contacto: <a href="mailto:konguru.73@gmail.com">konguru.73@gmail.com</a><br><br>
-  &copy; 2026 Urku. Todos los derechos reservados.
+  Pucallpa, Ucayali, Peru &nbsp;|&nbsp; RUC: 10736424041<br>
+  <a href="mailto:konguru.73@gmail.com">konguru.73@gmail.com</a> &nbsp;|&nbsp; Cel: 964 891 664<br><br>
+  <a href="#terminos">Terminos y Condiciones</a> &nbsp;&middot;&nbsp;
+  <a href="#terminos">Politica de Devoluciones</a> &nbsp;&middot;&nbsp;
+  <a href="#reclamaciones">Libro de Reclamaciones</a><br><br>
+  &copy; 2026 Urku. Todos los derechos reservados. &nbsp;|&nbsp; Pagos procesados por <strong>Culqi</strong>
 </footer>
+
+<script>
+function openModal(plan) {
+  document.getElementById('modal-title').textContent = 'Comprar: ' + plan;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+function enviarReclamo(e) {
+  e.preventDefault();
+  var nombre  = document.getElementById('lb-nombre').value;
+  var dni     = document.getElementById('lb-dni').value;
+  var email   = document.getElementById('lb-email').value;
+  var cel     = document.getElementById('lb-cel').value;
+  var tipo    = document.getElementById('lb-tipo').value;
+  var servicio= document.getElementById('lb-servicio').value;
+  var detalle = document.getElementById('lb-detalle').value;
+  var pedido  = document.getElementById('lb-pedido').value;
+  var fecha   = new Date().toLocaleDateString('es-PE', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  var codigo  = 'URK-' + Date.now().toString().slice(-6);
+
+  var subject = encodeURIComponent('[' + tipo.toUpperCase() + '] Libro Reclamaciones Urku - ' + codigo);
+  var body    = encodeURIComponent(
+    'LIBRO DE RECLAMACIONES URKU\n' +
+    'Codigo: ' + codigo + '\n' +
+    'Fecha: ' + fecha + '\n\n' +
+    'DATOS DEL CONSUMIDOR\n' +
+    'Nombre: ' + nombre + '\n' +
+    'DNI: ' + dni + '\n' +
+    'Email: ' + email + '\n' +
+    'Celular: ' + cel + '\n\n' +
+    'DETALLE DEL RECLAMO\n' +
+    'Tipo: ' + tipo + '\n' +
+    'Servicio: ' + servicio + '\n' +
+    'Descripcion: ' + detalle + '\n' +
+    'Pedido: ' + pedido
+  );
+
+  window.location.href = 'mailto:konguru.73@gmail.com?subject=' + subject + '&body=' + body;
+
+  document.getElementById('libro-form').style.display = 'none';
+  document.getElementById('libro-ok').style.display = 'block';
+}
+</script>
 
 </body>
 </html>
