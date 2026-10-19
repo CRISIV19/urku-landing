@@ -7,6 +7,7 @@
   <link rel="icon" type="image/png" href="favicon-32.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -500,60 +501,142 @@
     const d = window._reclamoData;
     if (!d) return;
 
-    // Construir HTML para imprimir como PDF
-    const html = `
-      <html><head><meta charset="UTF-8">
-      <style>
-        body { font-family: Arial, sans-serif; color: #111; padding: 40px; max-width: 700px; margin: 0 auto; }
-        .logo { font-size: 22px; font-weight: 900; color: #4CAF50; margin-bottom: 4px; }
-        .titulo { font-size: 18px; font-weight: 700; margin: 24px 0 4px; border-bottom: 2px solid #4CAF50; padding-bottom: 6px; }
-        .ticket { font-size: 13px; color: #555; margin-bottom: 24px; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-        td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid #e5e5e5; }
-        td:first-child { color: #666; width: 180px; font-weight: 600; text-transform: uppercase; font-size: 11px; }
-        .detalle-box { background: #f5f5f5; border-radius: 8px; padding: 14px; font-size: 13px; line-height: 1.6; margin-bottom: 24px; }
-        .footer { font-size: 11px; color: #888; border-top: 1px solid #ddd; padding-top: 14px; margin-top: 20px; }
-        .sello { background: #e8f5e9; border: 1px solid #a5d6a7; border-radius: 8px; padding: 12px 16px; font-size: 12px; color: #2e7d32; margin-bottom: 20px; }
-      </style></head><body>
-      <div class="logo">KarreraVa</div>
-      <div style="font-size:12px;color:#888">Plataforma de transporte multimodal — Pucallpa, Ucayali, Perú</div>
-      <div class="titulo">Constancia de Reclamación</div>
-      <div class="ticket">N.° de Ticket: <strong>${d.ticket}</strong> &nbsp;|&nbsp; Fecha: ${d.fecha}</div>
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'mm', format: 'a4' });
 
-      <div class="sello">✅ Reclamo registrado conforme al Código de Protección y Defensa del Consumidor (Ley N.° 29571). KarreraVa se compromete a responder en un plazo máximo de 15 días hábiles.</div>
+    const GREEN  = [76, 175, 80];
+    const BLACK  = [26, 26, 26];
+    const GRAY   = [100, 110, 120];
+    const LIGHT  = [245, 247, 250];
+    const BORDER = [220, 224, 230];
+    const W = 210; // page width mm
+    const L = 16;  // left margin
+    const R = W - L; // right edge
+    const CW = R - L; // content width
 
-      <table>
-        <tr><td>Reclamante</td><td>${d.nombre}</td></tr>
-        <tr><td>DNI</td><td>${d.dni}</td></tr>
-        <tr><td>Celular</td><td>${d.celular}</td></tr>
-        <tr><td>Correo</td><td>${d.email}</td></tr>
-        <tr><td>Tipo</td><td>${d.tipo}</td></tr>
-        <tr><td>Motivo</td><td>${d.motivo}</td></tr>
-        ${d.tripId ? `<tr><td>ID de viaje</td><td>${d.tripId}</td></tr>` : ''}
-        <tr><td>Lo que solicita</td><td>${d.pedido}</td></tr>
-      </table>
+    let y = 18;
 
-      <div style="font-size:12px;font-weight:700;text-transform:uppercase;color:#666;margin-bottom:8px">Detalle del reclamo</div>
-      <div class="detalle-box">${d.detalle}</div>
+    // Header bar
+    doc.setFillColor(...GREEN);
+    doc.rect(0, 0, W, 12, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(255, 255, 255);
+    doc.text('KarreraVa', L, 8);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.text('Plataforma de transporte — Pucallpa, Ucayali, Peru', L + 32, 8);
 
-      <table>
-        <tr><td>Proveedor</td><td>Isuiza Vargas Cristian</td></tr>
-        <tr><td>RUC</td><td>10736424041</td></tr>
-        <tr><td>Nombre Comercial</td><td>KarreraVa</td></tr>
-        <tr><td>Domicilio Fiscal</td><td>Pucallpa, Ucayali, Perú</td></tr>
-      </table>
+    // Title
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(16);
+    doc.setTextColor(...BLACK);
+    doc.text('Constancia de Reclamacion', L, y);
+    y += 5;
 
-      <div class="footer">
-        Documento generado el ${new Date().toLocaleString('es-PE')} desde karrerava.com/reclamaciones.html<br/>
-        Este documento es una constancia del registro de tu reclamo. Guárdalo como comprobante.
-      </div>
-      </body></html>`;
+    // Green underline
+    doc.setDrawColor(...GREEN);
+    doc.setLineWidth(0.6);
+    doc.line(L, y, R, y);
+    y += 5;
 
-    const win = window.open('', '_blank');
-    win.document.write(html);
-    win.document.close();
-    win.focus();
-    setTimeout(() => { win.print(); }, 400);
+    // Ticket & date
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...GRAY);
+    doc.text(`N. de Ticket: ${d.ticket}`, L, y);
+    doc.text(`Fecha: ${d.fecha}`, R, y, { align: 'right' });
+    y += 8;
+
+    // Legal notice box
+    doc.setFillColor(232, 245, 233);
+    doc.setDrawColor(165, 214, 167);
+    doc.roundedRect(L, y, CW, 10, 2, 2, 'FD');
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7.5);
+    doc.setTextColor(46, 125, 50);
+    const noticeLines = doc.splitTextToSize(
+      'Reclamo registrado conforme al Codigo de Proteccion y Defensa del Consumidor (Ley N. 29571). KarreraVa se compromete a responder en un plazo maximo de 15 dias habiles.',
+      CW - 4
+    );
+    doc.text(noticeLines, L + 2, y + 3.5);
+    y += 14;
+
+    // Row helper
+    const row = (label, value, isShaded) => {
+      const rh = 7;
+      if (isShaded) { doc.setFillColor(...LIGHT); doc.rect(L, y, CW, rh, 'F'); }
+      doc.setDrawColor(...BORDER);
+      doc.setLineWidth(0.2);
+      doc.line(L, y + rh, R, y + rh);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7);
+      doc.setTextColor(...GRAY);
+      doc.text(label.toUpperCase(), L + 2, y + 4.5);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9);
+      doc.setTextColor(...BLACK);
+      doc.text(String(value || '—'), L + 38, y + 4.8);
+      y += rh;
+    };
+
+    // Section header helper
+    const sectionTitle = (title) => {
+      y += 3;
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8);
+      doc.setTextColor(...GRAY);
+      doc.text(title.toUpperCase(), L, y);
+      y += 2;
+      doc.setDrawColor(...BORDER);
+      doc.setLineWidth(0.3);
+      doc.line(L, y, R, y);
+      y += 4;
+    };
+
+    sectionTitle('Datos del reclamante');
+    row('Reclamante', d.nombre, false);
+    row('DNI', d.dni, true);
+    row('Celular', d.celular, false);
+    row('Correo', d.email, true);
+
+    sectionTitle('Datos del reclamo');
+    row('Tipo', d.tipo, false);
+    row('Motivo', d.motivo, true);
+    if (d.tripId) row('ID de viaje', d.tripId, false);
+    row('Lo que solicita', d.pedido, !d.tripId);
+
+    sectionTitle('Detalle del reclamo');
+    doc.setFillColor(...LIGHT);
+    const detalleLines = doc.splitTextToSize(d.detalle || '—', CW - 6);
+    const detalleH = Math.max(12, detalleLines.length * 4.5 + 4);
+    doc.roundedRect(L, y, CW, detalleH, 2, 2, 'F');
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(...BLACK);
+    doc.text(detalleLines, L + 3, y + 5);
+    y += detalleH + 4;
+
+    sectionTitle('Datos del proveedor');
+    row('Proveedor', 'Isuiza Vargas Cristian', false);
+    row('RUC', '10736424041', true);
+    row('Nombre Comercial', 'KarreraVa', false);
+    row('Domicilio Fiscal', 'Pucallpa, Ucayali, Peru', true);
+
+    // Footer
+    y += 6;
+    doc.setDrawColor(...BORDER);
+    doc.setLineWidth(0.3);
+    doc.line(L, y, R, y);
+    y += 4;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7.5);
+    doc.setTextColor(...GRAY);
+    doc.text(`Documento generado el ${new Date().toLocaleString('es-PE')} desde karrerava.com/reclamaciones`, L, y);
+    y += 3.5;
+    doc.text('Este documento es una constancia del registro de tu reclamo. Guardalo como comprobante.', L, y);
+
+    doc.save(`Constancia-${d.ticket}.pdf`);
   };
 </script>
 
