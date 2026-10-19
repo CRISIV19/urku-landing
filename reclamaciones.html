@@ -281,10 +281,10 @@
         <input class="form-input" id="celular" type="text" inputmode="numeric" maxlength="9" placeholder="9XXXXXXXX" />
         <span class="error-msg">Celular debe tener 9 dígitos</span>
       </div>
-      <div class="form-group">
-        <label>Correo electrónico</label>
-        <span class="hint">Para enviarte la respuesta</span>
-        <input class="form-input" id="email" type="email" placeholder="opcional" />
+      <div class="form-group" id="g-email">
+        <label>Correo electrónico *</label>
+        <span class="hint">Te enviaremos la respuesta a este correo</span>
+        <input class="form-input" id="email" type="email" placeholder="ejemplo@correo.com" />
       </div>
     </div>
   </div>
@@ -408,6 +408,7 @@
       { id: 'nombre',  gid: 'g-nombre',  check: v => v.trim().length >= 3 },
       { id: 'dni',     gid: 'g-dni',     check: v => /^\d{8}$/.test(v.trim()) },
       { id: 'celular', gid: 'g-celular', check: v => /^\d{9}$/.test(v.trim()) },
+      { id: 'email',   gid: 'g-email',   check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) },
       { id: 'tipo',    gid: 'g-tipo',    check: v => v !== '' },
       { id: 'motivo',  gid: 'g-motivo',  check: v => v !== '' },
       { id: 'detalle', gid: 'g-detalle', check: v => v.trim().length >= 30 },
