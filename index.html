@@ -314,6 +314,7 @@
       <a href="#conductores">Conductores</a>
       <a href="#planes">Planes</a>
       <a href="#pagos">Métodos de Pago</a>
+      <a href="#nosotros">Nosotros</a>
       <a href="#descargar" class="nav-cta">Descargar app</a>
     </div>
     <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menú">
@@ -326,6 +327,7 @@
     <a href="#conductores" onclick="toggleMenu()">Conductores</a>
     <a href="#planes" onclick="toggleMenu()">Planes</a>
     <a href="#pagos" onclick="toggleMenu()">Métodos de Pago</a>
+    <a href="#nosotros" onclick="toggleMenu()">Nosotros</a>
     <a href="#descargar" onclick="toggleMenu()" style="color:var(--green);font-weight:700">Descargar app</a>
   </div>
 
@@ -557,6 +559,77 @@
           <div class="pay-name">Yape</div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ACERCA DE NOSOTROS -->
+  <section id="nosotros" class="how-bg">
+    <div class="section" style="text-align:center">
+      <div class="section-label" style="text-align:center">Quiénes somos</div>
+      <div class="section-title">Acerca de KarreraVa</div>
+      <div class="section-sub" style="margin:0 auto 56px">
+        Nacimos en Pucallpa con una misión clara: hacer que moverse por la ciudad sea más fácil, seguro y justo para todos.
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;text-align:left;margin-bottom:56px">
+
+        <!-- Misión -->
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px">
+          <div style="width:48px;height:48px;background:rgba(99,215,42,.12);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+            <svg viewBox="0 0 24 24" style="width:24px;height:24px;fill:var(--green)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+          </div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:var(--green);text-transform:uppercase;margin-bottom:10px">Misión</div>
+          <div style="font-size:17px;font-weight:700;color:var(--text);margin-bottom:12px">Conectar personas, transformar ciudades</div>
+          <p style="font-size:14px;color:var(--muted);line-height:1.7;margin:0">
+            Brindar a los habitantes de Pucallpa y Ucayali una plataforma de transporte multimodal accesible, segura y justa — que beneficie tanto a pasajeros como a conductores independientes, eliminando las barreras del transporte informal.
+          </p>
+        </div>
+
+        <!-- Visión -->
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px">
+          <div style="width:48px;height:48px;background:rgba(99,215,42,.12);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+            <svg viewBox="0 0 24 24" style="width:24px;height:24px;fill:var(--green)"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+          </div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:var(--green);text-transform:uppercase;margin-bottom:10px">Visión</div>
+          <div style="font-size:17px;font-weight:700;color:var(--text);margin-bottom:12px">Ser el estándar del transporte en la Amazonía</div>
+          <p style="font-size:14px;color:var(--muted);line-height:1.7;margin:0">
+            Convertirnos en la plataforma de movilidad de referencia para las ciudades de la Amazonía peruana, expandiéndonos a nuevas regiones y modos de transporte, con tecnología que pone a las personas primero.
+          </p>
+        </div>
+
+        <!-- Valores -->
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px">
+          <div style="width:48px;height:48px;background:rgba(99,215,42,.12);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+            <svg viewBox="0 0 24 24" style="width:24px;height:24px;fill:var(--green)"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          </div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:var(--green);text-transform:uppercase;margin-bottom:10px">Valores</div>
+          <div style="font-size:17px;font-weight:700;color:var(--text);margin-bottom:16px">Lo que nos guía cada día</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0"></span>Seguridad para conductores y pasajeros
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0"></span>Transparencia en tarifas y comisiones
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0"></span>Innovación con propósito local
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0"></span>Respeto por el conductor independiente
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Historia -->
+      <div style="background:linear-gradient(135deg,rgba(99,215,42,.08) 0%,transparent 60%);border:1px solid rgba(99,215,42,.2);border-radius:20px;padding:40px;text-align:left;max-width:760px;margin:0 auto">
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:var(--green);text-transform:uppercase;margin-bottom:12px">Nuestra historia</div>
+        <p style="font-size:15px;color:var(--muted);line-height:1.8;margin:0">
+          KarreraVa nació en Pucallpa con la visión de digitalizar el transporte urbano en una de las ciudades más dinámicas de la Amazonía peruana. Vimos que conductores y pasajeros merecían una mejor experiencia — sin intermediarios abusivos, sin tarifas ocultas, con tecnología real al alcance de todos. Hoy conectamos mototaxis, autos, botes, motos y más, en una sola app construida para la realidad de Ucayali.
+        </p>
+      </div>
+
     </div>
   </section>
 
