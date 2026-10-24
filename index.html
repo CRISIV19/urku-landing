@@ -147,21 +147,49 @@
     }
     .section-title { font-size: clamp(22px, 4vw, 36px); font-weight: 800; margin-bottom: 12px; }
     .section-sub { font-size: 15px; color: var(--muted); max-width: 520px; line-height: 1.7; margin-bottom: 48px; }
+    /* ── Modos de transporte ── */
     .modes-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      grid-template-columns: repeat(5, 1fr);
       gap: 16px;
     }
+    @media (max-width: 900px) { .modes-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 560px) { .modes-grid { grid-template-columns: repeat(2, 1fr); } }
+
     .mode-card {
+      border-radius: 18px; overflow: hidden;
       background: var(--card); border: 1px solid var(--border);
-      border-radius: 18px; padding: 24px 20px;
-      display: flex; flex-direction: column; align-items: flex-start;
-      gap: 12px; transition: border-color .2s, transform .2s;
+      display: flex; flex-direction: column;
+      transition: border-color .25s, transform .25s, box-shadow .25s;
+      cursor: default;
     }
-    .mode-card:hover { border-color: rgba(99,215,42,.4); transform: translateY(-3px); }
-    .mode-emoji { font-size: 32px; }
-    .mode-name { font-size: 14px; font-weight: 700; }
-    .mode-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+    .mode-card:hover {
+      border-color: rgba(99,215,42,.5);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,.35);
+    }
+    .mode-img {
+      position: relative;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+    }
+    .mode-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform .45s cubic-bezier(.22,.61,.36,1);
+    }
+    .mode-card:hover .mode-img img { transform: scale(1.07); }
+    .mode-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.55) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .mode-body {
+      padding: 16px 16px 18px;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .mode-name { font-size: 14px; font-weight: 700; color: var(--text); }
+    .mode-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
 
     /* ── CÓMO FUNCIONA ── */
     .how-bg { background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -378,31 +406,62 @@
       <div class="section-title">El transporte que necesitas,<br/>como lo necesitas</div>
       <div class="section-sub">Mototaxis, autos, motos y más. KarreraVa cubre los modos de movilidad de Pucallpa y Ucayali.</div>
       <div class="modes-grid">
+
         <div class="mode-card">
-          <div class="mode-emoji">🛺</div>
-          <div class="mode-name">Mototaxi</div>
-          <div class="mode-desc">El transporte más popular de Pucallpa. Rápido, económico y disponible en toda la ciudad.</div>
+          <div class="mode-img">
+            <img src="img/conductor_motokar.jpg" alt="Mototaxi" loading="lazy" />
+            <div class="mode-img-overlay"></div>
+          </div>
+          <div class="mode-body">
+            <div class="mode-name">Mototaxi</div>
+            <div class="mode-desc">El transporte más popular de Pucallpa. Rápido, económico y disponible en toda la ciudad.</div>
+          </div>
         </div>
+
         <div class="mode-card">
-          <div class="mode-emoji">🚗</div>
-          <div class="mode-name">Auto</div>
-          <div class="mode-desc">Viajes cómodos en auto para distancias largas o cuando necesitas más espacio.</div>
+          <div class="mode-img">
+            <img src="img/conductor_auto.jpg" alt="Auto" loading="lazy" />
+            <div class="mode-img-overlay"></div>
+          </div>
+          <div class="mode-body">
+            <div class="mode-name">Auto</div>
+            <div class="mode-desc">Viajes cómodos en auto para distancias largas o cuando necesitas más espacio.</div>
+          </div>
         </div>
+
         <div class="mode-card">
-          <div class="mode-emoji">🏍️</div>
-          <div class="mode-name">Moto Lineal</div>
-          <div class="mode-desc">La opción más ágil para evitar el tráfico. Ideal para trayectos cortos y rápidos.</div>
+          <div class="mode-img">
+            <img src="img/conductor_moto.jpg" alt="Moto Lineal" loading="lazy" />
+            <div class="mode-img-overlay"></div>
+          </div>
+          <div class="mode-body">
+            <div class="mode-name">Moto Lineal</div>
+            <div class="mode-desc">La opción más ágil para evitar el tráfico. Ideal para trayectos cortos y rápidos.</div>
+          </div>
         </div>
+
         <div class="mode-card">
-          <div class="mode-emoji">🚛</div>
-          <div class="mode-name">Carga</div>
-          <div class="mode-desc">Mudanzas y carga pesada con vehículos de gran capacidad y conductores de confianza.</div>
+          <div class="mode-img">
+            <img src="img/conductor_carga.jpg" alt="Carga" loading="lazy" />
+            <div class="mode-img-overlay"></div>
+          </div>
+          <div class="mode-body">
+            <div class="mode-name">Carga</div>
+            <div class="mode-desc">Mudanzas y carga pesada con vehículos de gran capacidad y conductores de confianza.</div>
+          </div>
         </div>
+
         <div class="mode-card">
-          <div class="mode-emoji">📦</div>
-          <div class="mode-name">Encomiendas</div>
-          <div class="mode-desc">Envía paquetes a cualquier punto de Pucallpa en mototaxi, auto o moto. Rápido y seguro.</div>
+          <div class="mode-img">
+            <img src="img/entrega_paquete.jpg" alt="Encomiendas" loading="lazy" />
+            <div class="mode-img-overlay"></div>
+          </div>
+          <div class="mode-body">
+            <div class="mode-name">Encomiendas</div>
+            <div class="mode-desc">Envía paquetes a cualquier punto de Pucallpa en mototaxi, auto o moto. Rápido y seguro.</div>
+          </div>
         </div>
+
       </div>
     </div>
   </section>
