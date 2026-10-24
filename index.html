@@ -253,33 +253,32 @@
     .steps {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 0;
+      gap: 24px;
+      position: relative;
       margin-top: 56px;
+    }
+
+    /* Línea a la altura del centro del círculo, cubierta por el fondo de cada número */
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 27px;          /* centro del círculo 56px */
+      left: 28px;         /* centro del primer círculo */
+      right: 28px;        /* centro del último círculo */
+      height: 1px;
+      background: linear-gradient(to right,
+        rgba(99,215,42,.8) 0%,
+        rgba(99,215,42,.25) 100%
+      );
+      z-index: 0;
     }
 
     .step {
       display: flex; flex-direction: column; align-items: flex-start;
-      padding: 0 24px;
       position: relative;
     }
-    .step:first-child { padding-left: 0; }
-    .step:last-child  { padding-right: 0; }
 
-    /* Línea entre el borde derecho del círculo y el borde izquierdo del siguiente */
-    .step:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      top: 27px;                  /* centro del círculo de 56px */
-      left: calc(56px + 12px);   /* después del círculo + gap */
-      right: calc(-100% + 56px + 12px);
-      height: 1px;
-      background: linear-gradient(to right,
-        rgba(99,215,42,.7) 0%,
-        rgba(99,215,42,.2) 100%
-      );
-    }
-
-    /* Círculo numerado */
+    /* Círculo numerado — fondo opaco tapa la línea detrás */
     .step-num {
       position: relative; z-index: 1;
       width: 56px; height: 56px; border-radius: 50%;
@@ -303,17 +302,15 @@
     }
     .step p { font-size: 13px; color: var(--muted); line-height: 1.65; }
 
-    /* Paso final: check verde lleno */
     .step.step-final .step-num {
-      background: var(--green); color: #020202;
-      border-color: var(--green);
+      background: var(--green); color: #020202; border-color: var(--green);
+      box-shadow: 0 0 0 5px var(--dark), 0 0 24px rgba(99,215,42,.4);
     }
     .step.step-final:hover .step-num { background: var(--green); }
 
     @media (max-width: 760px) {
-      .steps { grid-template-columns: 1fr 1fr; gap: 36px; }
-      .step::after { display: none; }
-      .step { padding: 0; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .steps::before { display: none; }
     }
     @media (max-width: 440px) {
       .steps { grid-template-columns: 1fr; }
