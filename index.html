@@ -254,31 +254,30 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 0;
-      position: relative;
       margin-top: 56px;
-    }
-
-    /* Línea conectora entre pasos */
-    .steps::before {
-      content: '';
-      position: absolute;
-      top: 28px; left: calc(12.5% + 24px); right: calc(12.5% + 24px);
-      height: 1px;
-      background: linear-gradient(to right,
-        var(--green) 0%,
-        rgba(99,215,42,.4) 60%,
-        rgba(99,215,42,.1) 100%
-      );
-      z-index: 0;
     }
 
     .step {
       display: flex; flex-direction: column; align-items: flex-start;
-      padding: 0 20px;
+      padding: 0 24px;
       position: relative;
     }
     .step:first-child { padding-left: 0; }
     .step:last-child  { padding-right: 0; }
+
+    /* Línea entre el borde derecho del círculo y el borde izquierdo del siguiente */
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 27px;                  /* centro del círculo de 56px */
+      left: calc(56px + 12px);   /* después del círculo + gap */
+      right: calc(-100% + 56px + 12px);
+      height: 1px;
+      background: linear-gradient(to right,
+        rgba(99,215,42,.7) 0%,
+        rgba(99,215,42,.2) 100%
+      );
+    }
 
     /* Círculo numerado */
     .step-num {
@@ -287,26 +286,16 @@
       background: var(--dark);
       border: 2px solid var(--green);
       display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
       font-size: 20px; font-weight: 900; color: var(--green);
-      margin-bottom: 28px;
-      box-shadow: 0 0 0 6px var(--dark), 0 0 20px rgba(99,215,42,.2);
+      margin-bottom: 24px;
+      box-shadow: 0 0 0 5px var(--dark), 0 0 18px rgba(99,215,42,.15);
       transition: box-shadow .3s ease, background .3s ease;
     }
     .step:hover .step-num {
       background: rgba(99,215,42,.1);
-      box-shadow: 0 0 0 6px var(--dark), 0 0 28px rgba(99,215,42,.4);
+      box-shadow: 0 0 0 5px var(--dark), 0 0 28px rgba(99,215,42,.4);
     }
-
-    /* Icono SVG dentro del paso */
-    .step-icon {
-      width: 40px; height: 40px;
-      border-radius: 12px;
-      background: rgba(99,215,42,.08);
-      border: 1px solid rgba(99,215,42,.2);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 16px;
-    }
-    .step-icon svg { width: 20px; height: 20px; fill: var(--green); }
 
     .step h3 {
       font-size: 16px; font-weight: 800;
@@ -323,7 +312,7 @@
 
     @media (max-width: 760px) {
       .steps { grid-template-columns: 1fr 1fr; gap: 36px; }
-      .steps::before { display: none; }
+      .step::after { display: none; }
       .step { padding: 0; }
     }
     @media (max-width: 440px) {
@@ -694,10 +683,6 @@
         <!-- Paso 1 -->
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-icon">
-            <!-- Mapa/destino -->
-            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-          </div>
           <h3>Abre la app y elige tu destino</h3>
           <p>La app detecta tu ubicación automáticamente y muestra conductores disponibles cerca de ti.</p>
         </div>
@@ -705,10 +690,6 @@
         <!-- Paso 2 -->
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-icon">
-            <!-- Vehículo -->
-            <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.85 7h10.29l1.08 3.11H5.77L6.85 7zM19 17H5v-5h14v5zM7.5 14c-.83 0-1.5.67-1.5 1.5S6.67 17 7.5 17 9 16.33 9 15.5 8.33 14 7.5 14zm9 0c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/></svg>
-          </div>
           <h3>Elige tu modo de transporte</h3>
           <p>Mototaxi, auto, moto o carga — ve el precio antes de confirmar. Sin sorpresas.</p>
         </div>
@@ -716,10 +697,6 @@
         <!-- Paso 3 -->
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-icon">
-            <!-- Seguimiento tiempo real -->
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
-          </div>
           <h3>Sigue el viaje en tiempo real</h3>
           <p>Rastrea al conductor en el mapa. Al llegar, paga en efectivo, Yape o Plin.</p>
         </div>
@@ -728,10 +705,6 @@
         <div class="step step-final">
           <div class="step-num">
             <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:#020202"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          </div>
-          <div class="step-icon">
-            <!-- Escudo seguridad -->
-            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
           </div>
           <h3>Viaje seguro y calificado</h3>
           <p>Botón SOS integrado, conductores verificados y sistema de calificación en cada viaje.</p>
