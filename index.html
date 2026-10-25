@@ -449,27 +449,86 @@
     }
 
     /* ── PLANES ── */
-    .plans-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      align-items: start;
+      margin-top: 48px;
+    }
+
     .plan-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 20px; padding: 28px; position: relative;
-      transition: border-color .2s, transform .2s;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 24px;
+      padding: 32px 28px 28px;
+      position: relative;
+      transition: border-color .3s, transform .3s, box-shadow .3s;
     }
-    .plan-card:hover { transform: translateY(-4px); }
-    .plan-card.popular { border-color: var(--green); }
+    .plan-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255,255,255,.16);
+      box-shadow: 0 16px 48px rgba(0,0,0,.3);
+    }
+
+    /* Card popular resaltada */
+    .plan-card.popular {
+      background: rgba(99,215,42,.06);
+      border-color: rgba(99,215,42,.4);
+      box-shadow: 0 0 0 1px rgba(99,215,42,.15), 0 8px 40px rgba(99,215,42,.1);
+    }
+    .plan-card.popular:hover {
+      border-color: rgba(99,215,42,.65);
+      box-shadow: 0 0 0 1px rgba(99,215,42,.3), 0 20px 56px rgba(99,215,42,.18);
+    }
+
+    /* Badge "Más popular" */
     .plan-popular-badge {
-      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-      background: var(--green); color: #020202;
-      font-size: 10px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase;
-      padding: 4px 14px; border-radius: 100px;
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      background: var(--green); color: #090909;
+      font-size: 10px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase;
+      padding: 5px 16px; border-radius: 100px;
+      white-space: nowrap;
+      box-shadow: 0 4px 16px rgba(99,215,42,.4);
     }
-    .plan-name { font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 8px; }
-    .plan-price { font-size: 36px; font-weight: 900; color: var(--green); }
-    .plan-price span { font-size: 16px; font-weight: 600; color: var(--muted); }
-    .plan-duration { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
-    .plan-features { display: flex; flex-direction: column; gap: 10px; }
-    .plan-feature { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
-    .plan-feature svg { width: 16px; height: 16px; fill: var(--green); flex-shrink: 0; }
+
+    /* Encabezado de la card */
+    .plan-header { margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,.07); }
+    .plan-name {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 16px;
+    }
+    .plan-price-row { display: flex; align-items: flex-end; gap: 4px; margin-bottom: 6px; }
+    .plan-currency { font-size: 20px; font-weight: 800; color: var(--green); line-height: 1.4; }
+    .plan-amount { font-size: 52px; font-weight: 900; color: var(--green); line-height: 1; letter-spacing: -2px; }
+    .plan-period { font-size: 14px; font-weight: 500; color: var(--muted); padding-bottom: 6px; }
+    .plan-duration {
+      display: inline-block;
+      font-size: 11px; color: var(--green);
+      background: rgba(99,215,42,.1);
+      border: 1px solid rgba(99,215,42,.2);
+      padding: 3px 10px; border-radius: 100px;
+      font-weight: 600;
+    }
+
+    /* Features */
+    .plan-features { display: flex; flex-direction: column; gap: 12px; }
+    .plan-feature {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; color: rgba(255,255,255,.65);
+    }
+    .plan-feature-icon {
+      width: 18px; height: 18px; flex-shrink: 0;
+      background: rgba(99,215,42,.12);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .plan-feature-icon svg { width: 11px; height: 11px; fill: var(--green); }
+
+    @media (max-width: 820px) {
+      .plans-grid { grid-template-columns: 1fr; max-width: 380px; margin-left: auto; margin-right: auto; }
+    }
 
     /* ── DESCARGA ── */
     .download-section {
@@ -826,41 +885,67 @@
       <div class="section-label">Planes para conductores</div>
       <div class="section-title">Sin comisión. Sin límites.</div>
       <div class="section-sub">Activa un plan y cobra el 100% de cada viaje. Sin sorpresas, sin descuentos ocultos.</div>
+
       <div class="plans-grid">
+
+        <!-- Semanal -->
         <div class="plan-card">
-          <div class="plan-name">Plan Semanal</div>
-          <div class="plan-price">S/ 10<span> /semana</span></div>
-          <div class="plan-duration">7 días sin comisión</div>
+          <div class="plan-header">
+            <div class="plan-name">Plan Semanal</div>
+            <div class="plan-price-row">
+              <span class="plan-currency">S/</span>
+              <span class="plan-amount">10</span>
+              <span class="plan-period">/semana</span>
+            </div>
+            <span class="plan-duration">7 días sin comisión</span>
+          </div>
           <div class="plan-features">
-            <div class="plan-feature"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>0% de comisión 7 días</div>
-            <div class="plan-feature"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Acceso básico a la plataforma</div>
-            <div class="plan-feature"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Soporte por email</div>
-            <div class="plan-feature"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Badge de conductor verificado</div>
+            <div class="plan-feature"><div class="plan-feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>0% de comisión 7 días</div>
+            <div class="plan-feature"><div class="plan-feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>Acceso básico a la plataforma</div>
+            <div class="plan-feature"><div class="plan-feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>Soporte por email</div>
+            <div class="plan-feature"><div class="plan-feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>Badge de conductor verificado</div>
           </div>
         </div>
+
+        <!-- Mensual (popular) -->
         <div class="plan-card popular">
           <div class="plan-popular-badge">⭐ Más popular</div>
-          <div class="plan-name">Plan Mensual</div>
-          <div class="plan-price">S/ 30<span> /mes</span></div>
-          <div class="plan-duration">30 días · ¡Ahorra S/ 10!</div>
+          <div class="plan-header">
+            <div class="plan-name">Plan Mensual</div>
+            <div class="plan-price-row">
+              <span class="plan-currency">S/</span>
+              <span class="plan-amount">30</span>
+              <span class="plan-period">/mes</span>
+            </div>
+            <span class="plan-duration">30 días · ¡Ahorra S/ 10!</span>
+          </div>
           <div class="plan-features">
-            <div class="plan-feature"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>0% de comisión 30 días</div>
-            <div class="plan-feature"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Prioridad en cola de viajes</div>
-            <div class="plan-feature"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Badge "Conductor Premium"</div>
-            <div class="plan-feature"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Soporte prioritario por email</div>
+            <div class="plan-feature"><div class="plan-feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>0% de comisión 30 días</div>
+            <div class="plan-feature"><div class="plan-feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>Prioridad en cola de viajes</div>
+            <div class="plan-feature"><div class="plan-feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>Badge "Conductor Premium"</div>
+            <div class="plan-feature"><div class="plan-feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>Soporte prioritario por email</div>
           </div>
         </div>
+
+        <!-- Anual -->
         <div class="plan-card">
-          <div class="plan-name">Plan Anual</div>
-          <div class="plan-price">S/ 300<span> /año</span></div>
-          <div class="plan-duration">365 días · ¡2 meses GRATIS!</div>
+          <div class="plan-header">
+            <div class="plan-name">Plan Anual</div>
+            <div class="plan-price-row">
+              <span class="plan-currency">S/</span>
+              <span class="plan-amount">300</span>
+              <span class="plan-period">/año</span>
+            </div>
+            <span class="plan-duration">365 días · ¡2 meses GRATIS!</span>
+          </div>
           <div class="plan-features">
-            <div class="plan-feature"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>0% de comisión 365 días</div>
-            <div class="plan-feature"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Máxima prioridad en viajes</div>
-            <div class="plan-feature"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Badge "Conductor Elite"</div>
-            <div class="plan-feature"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Soporte VIP — respuesta en 1h</div>
+            <div class="plan-feature"><div class="plan-feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>0% de comisión 365 días</div>
+            <div class="plan-feature"><div class="plan-feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>Máxima prioridad en viajes</div>
+            <div class="plan-feature"><div class="plan-feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>Badge "Conductor Elite"</div>
+            <div class="plan-feature"><div class="plan-feature-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>Soporte VIP — respuesta en 1h</div>
           </div>
         </div>
+
       </div>
     </div>
   </section>
