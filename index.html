@@ -9,8 +9,10 @@
   <meta property="og:description" content="La app de transporte multimodal para Pucallpa y Ucayali." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://karrerava.com" />
-  <link rel="icon" type="image/png" href="favicon-32.png" />
-  <link rel="apple-touch-icon" href="favicon-32.png" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="favicon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
@@ -335,10 +337,24 @@
 
     @media (max-width: 760px) {
       .steps-circles { display: none; }
-      .steps-text { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 440px) {
-      .steps-text { grid-template-columns: 1fr; }
+      /* En móvil: lista vertical con número inline */
+      .steps-text { grid-template-columns: 1fr; gap: 0; }
+      .step-text {
+        display: flex; align-items: flex-start; gap: 16px;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .step-text:last-child { border-bottom: none; }
+      .step-text::before {
+        content: attr(data-num);
+        flex-shrink: 0;
+        width: 36px; height: 36px; border-radius: 50%;
+        background: rgba(99,215,42,.1);
+        border: 1.5px solid rgba(99,215,42,.4);
+        color: var(--green);
+        font-size: 14px; font-weight: 900;
+        display: flex; align-items: center; justify-content: center;
+      }
     }
 
     /* ── CONDUCTORES ── */
@@ -857,19 +873,19 @@
 
         <!-- Textos debajo -->
         <div class="steps-text">
-          <div class="step-text">
+          <div class="step-text" data-num="1">
             <h3>Abre la app y elige tu destino</h3>
             <p>La app detecta tu ubicación automáticamente y muestra conductores disponibles cerca de ti.</p>
           </div>
-          <div class="step-text">
+          <div class="step-text" data-num="2">
             <h3>Elige tu modo de transporte</h3>
             <p>Mototaxi, auto, moto o carga — ve el precio antes de confirmar. Sin sorpresas.</p>
           </div>
-          <div class="step-text">
+          <div class="step-text" data-num="3">
             <h3>Sigue el viaje en tiempo real</h3>
             <p>Rastrea al conductor en el mapa. Al llegar, paga en efectivo, Yape o Plin.</p>
           </div>
-          <div class="step-text">
+          <div class="step-text" data-num="✓">
             <h3>Viaje seguro y calificado</h3>
             <p>Botón SOS integrado, conductores verificados y sistema de calificación en cada viaje.</p>
           </div>
