@@ -1634,12 +1634,12 @@
 
   <div class="qr-overlay" id="qrOverlay" onclick="closeQrModal(event)">
     <div class="qr-modal">
-      <button class="qr-close" onclick="closeQrModal()">✕</button>
+      <button class="qr-close" onclick="document.getElementById('qrOverlay').classList.remove('open');document.body.style.overflow=''">✕</button>
       <div class="qr-badge">Conductor</div>
       <div class="qr-title">Descarga KarreraVa</div>
       <p class="qr-sub">Escanea el código con tu celular para descargar la app y registrarte como conductor.</p>
       <div id="qr-canvas-wrap">
-        <canvas id="qr-canvas"></canvas>
+        <div id="qr-canvas"></div>
       </div>
       <p class="qr-hint">Apunta la cámara al código · <strong>Google Play</strong></p>
       <a class="qr-direct" href="https://play.google.com/store/apps/details?id=com.karrerava.app" target="_blank">
@@ -1662,10 +1662,14 @@
       document.getElementById('qrOverlay').classList.add('open');
       document.body.style.overflow = 'hidden';
       if (!qrGenerated) {
-        new QRCode(document.getElementById('qr-canvas'), {
+        const container = document.getElementById('qr-canvas');
+        container.innerHTML = '';
+        new QRCode(container, {
           text: APP_URL,
-          width: 180, height: 180,
-          colorDark: '#000', colorLight: '#fff',
+          width: 180,
+          height: 180,
+          colorDark: '#000000',
+          colorLight: '#ffffff',
           correctLevel: QRCode.CorrectLevel.H
         });
         qrGenerated = true;
@@ -1673,13 +1677,24 @@
     }
 
     function closeQrModal(e) {
-      if (e && e.target !== document.getElementById('qrOverlay')) return;
+      if (e && e.type === 'click' && e.currentTarget === e.target) {
+        // clic en el overlay oscuro
+      } else if (e && e.type === 'click') {
+        return; // clic dentro del modal, ignorar
+      }
       document.getElementById('qrOverlay').classList.remove('open');
       document.body.style.overflow = '';
     }
 
+    document.getElementById('qrOverlay').addEventListener('click', function(e) {
+      if (e.target === this) closeQrModal();
+    });
+
     document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeQrModal();
+      if (e.key === 'Escape') {
+        document.getElementById('qrOverlay').classList.remove('open');
+        document.body.style.overflow = '';
+      }
     });
   </script>
 </body>
