@@ -1020,174 +1020,179 @@
 
   <!-- PRÓXIMAMENTE -->
   <style>
-    /* ── Próximamente ───────────────────────────── */
+    /* ── Próximamente ── */
     #proximamente { padding: 80px 0; }
-
     .prox-wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-    .prox-header { text-align: center; margin-bottom: 64px; }
+    /* Header fila: título izq + texto der */
+    .prox-top {
+      display: flex; align-items: flex-end;
+      justify-content: space-between; gap: 32px;
+      margin-bottom: 48px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .prox-top-title {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 900; color: var(--text);
+      line-height: 1.1; letter-spacing: -.5px;
+    }
+    .prox-top-title span { color: var(--green); }
+    .prox-top-sub {
+      font-size: 14px; color: var(--muted);
+      line-height: 1.7; max-width: 320px; flex-shrink: 0;
+    }
 
-    /* Tarjetas horizontales en desktop */
-    .prox-list { display: flex; flex-direction: column; gap: 32px; }
-
-    .prox-item {
+    /* Grid de cards */
+    .prox-grid {
       display: grid;
-      grid-template-columns: 480px 1fr;
-      border-radius: 20px;
-      overflow: hidden;
-      background: var(--card);
-      border: 1px solid var(--border);
-      box-shadow: 0 4px 24px rgba(0,0,0,.25);
-      transition: box-shadow .3s ease, transform .3s ease;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
     }
-    .prox-item:hover {
-      box-shadow: 0 12px 40px rgba(0,0,0,.4);
-      transform: translateY(-3px);
-    }
-    .prox-item.reverse { grid-template-columns: 1fr 480px; }
-    .prox-item.reverse .prox-img { order: 2; }
-    .prox-item.reverse .prox-info { order: 1; }
 
-    .prox-img {
-      position: relative;
-      overflow: hidden;
-      min-height: 300px;
+    .pc {
+      border-radius: 20px; overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--card);
+      transition: border-color .3s, transform .35s cubic-bezier(.22,.61,.36,1);
     }
-    .prox-img img {
+    .pc:hover {
+      border-color: rgba(99,215,42,.4);
+      transform: translateY(-5px);
+    }
+
+    /* Imagen */
+    .pc-img {
+      overflow: hidden;
+      aspect-ratio: 16/9;
+    }
+    .pc-img img {
       width: 100%; height: 100%;
       object-fit: cover; display: block;
-      transition: transform .5s cubic-bezier(.22,.61,.36,1);
+      transition: transform .55s cubic-bezier(.22,.61,.36,1);
     }
-    .prox-item:hover .prox-img img { transform: scale(1.05); }
+    .pc:hover .pc-img img { transform: scale(1.06); }
 
-    /* Overlay sutil solo para contraste en bordes */
-    .prox-img::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(0,0,0,.15) 0%, transparent 60%);
-      pointer-events: none;
-    }
+    /* Body debajo de la imagen */
+    .pc-body { padding: 28px 28px 32px; }
 
-    /* Panel de contenido */
-    .prox-info {
-      padding: 40px 44px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 0;
+    /* Fila: número + badge */
+    .pc-meta {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
     }
-
-    .prox-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      margin-bottom: 18px;
-      width: fit-content;
+    .pc-num {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; color: rgba(255,255,255,.2);
+      text-transform: uppercase;
     }
-    .prox-status-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 8px rgba(99,215,42,.6);
+    .pc-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 100px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .8px; text-transform: uppercase;
+      border: 1px solid;
+    }
+    .pc-badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
       animation: blink-dot 2s ease-in-out infinite;
     }
     @keyframes blink-dot {
-      0%,100% { opacity: 1; }
-      50%      { opacity: .3; }
+      0%,100% { opacity:1; } 50% { opacity:.3; }
     }
-    .prox-status-text {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+    .pc-badge.green {
       color: var(--green);
+      border-color: rgba(99,215,42,.35);
+      background: rgba(99,215,42,.08);
+    }
+    .pc-badge.amber {
+      color: #f59e0b;
+      border-color: rgba(245,158,11,.35);
+      background: rgba(245,158,11,.08);
     }
 
-    .prox-title {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--text);
-      line-height: 1.2;
-      margin-bottom: 14px;
+    .pc-title {
+      font-size: 24px; font-weight: 800;
+      color: var(--text); line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .pc-desc {
+      font-size: 13px; color: var(--muted);
+      line-height: 1.7; margin-bottom: 24px;
     }
 
-    .prox-desc {
-      font-size: 15px;
-      color: var(--muted);
-      line-height: 1.75;
-      margin-bottom: 28px;
+    /* CTA estilo "Learn More ——" */
+    .pc-link {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 13px; font-weight: 700;
+      color: var(--green); text-decoration: none;
+      letter-spacing: .3px;
     }
-
-    .prox-tag {
-      display: inline-block;
-      background: rgba(99,215,42,.10);
-      border: 1px solid rgba(99,215,42,.25);
-      color: var(--green);
-      font-size: 12px;
-      font-weight: 600;
-      padding: 6px 14px;
-      border-radius: 100px;
-      width: fit-content;
+    .pc-link::after {
+      content: '';
+      display: block; width: 28px; height: 1px;
+      background: var(--green);
+      transition: width .3s ease;
     }
+    .pc:hover .pc-link::after { width: 44px; }
 
-    /* Responsive */
-    @media (max-width: 820px) {
-      .prox-item,
-      .prox-item.reverse { grid-template-columns: 1fr; }
-      .prox-item.reverse .prox-img { order: 0; }
-      .prox-item.reverse .prox-info { order: 1; }
-      .prox-img { min-height: 220px; }
-      .prox-info { padding: 28px 24px; }
-      .prox-title { font-size: 22px; }
+    @media (max-width: 720px) {
+      .prox-top { flex-direction: column; align-items: flex-start; }
+      .prox-grid { grid-template-columns: 1fr; }
     }
   </style>
 
   <section id="proximamente">
     <div class="prox-wrap">
 
-      <div class="prox-header">
-        <div class="section-label">Lo que viene</div>
-        <div class="section-title">Próximamente en KarreraVa</div>
-        <div class="section-sub" style="margin:12px auto 0">
-          Estamos construyendo el futuro del transporte en la Amazonía.
-        </div>
+      <!-- Header -->
+      <div class="prox-top">
+        <h2 class="prox-top-title">
+          Lo que viene<br/>
+          <span>próximamente</span>
+        </h2>
+        <p class="prox-top-sub">
+          Estamos construyendo el futuro del transporte en la Amazonía. Estas funciones estarán disponibles muy pronto.
+        </p>
       </div>
 
-      <div class="prox-list">
+      <!-- Cards -->
+      <div class="prox-grid">
 
-        <!-- Tarjeta 1: Alquiler -->
-        <div class="prox-item">
-          <div class="prox-img">
+        <div class="pc">
+          <div class="pc-img">
             <img src="img/alquiler.jpg" alt="Alquiler de vehículos" loading="lazy" />
           </div>
-          <div class="prox-info">
-            <div class="prox-status">
-              <div class="prox-status-dot"></div>
-              <span class="prox-status-text">Muy pronto</span>
+          <div class="pc-body">
+            <div class="pc-meta">
+              <span class="pc-num">01</span>
+              <span class="pc-badge green">
+                <span class="pc-badge-dot" style="background:var(--green)"></span>
+                Muy pronto
+              </span>
             </div>
-            <div class="prox-title">Alquiler de vehículos</div>
-            <p class="prox-desc">
-              Alquila autos, motos y más por horas o días directamente desde la app. Sin papeleos, sin complicaciones — solo elige, reserva y maneja.
-            </p>
-            <span class="prox-tag">Disponible próximamente</span>
+            <div class="pc-title">Alquiler de vehículos</div>
+            <p class="pc-desc">Alquila autos, motos y más por horas o días directamente desde la app. Sin papeleos, sin complicaciones.</p>
+            <a class="pc-link">En desarrollo</a>
           </div>
         </div>
 
-        <!-- Tarjeta 2: Expansión (imagen a la derecha) -->
-        <div class="prox-item reverse">
-          <div class="prox-img">
+        <div class="pc">
+          <div class="pc-img">
             <img src="img/expasion.jpg" alt="Expansión regional" loading="lazy" />
           </div>
-          <div class="prox-info">
-            <div class="prox-status">
-              <div class="prox-status-dot" style="background:#f59e0b;box-shadow:0 0 8px rgba(245,158,11,.6)"></div>
-              <span class="prox-status-text" style="color:#f59e0b">En desarrollo</span>
+          <div class="pc-body">
+            <div class="pc-meta">
+              <span class="pc-num">02</span>
+              <span class="pc-badge amber">
+                <span class="pc-badge-dot" style="background:#f59e0b"></span>
+                En desarrollo
+              </span>
             </div>
-            <div class="prox-title">Expansión regional</div>
-            <p class="prox-desc">
-              KarreraVa llegará a más ciudades de la Amazonía peruana. Lo que empieza en Pucallpa se convierte en el estándar de transporte de toda la región.
-            </p>
-            <span class="prox-tag" style="background:rgba(245,158,11,.10);border-color:rgba(245,158,11,.25);color:#f59e0b">En desarrollo</span>
+            <div class="pc-title">Expansión regional</div>
+            <p class="pc-desc">KarreraVa llegará a más ciudades de la Amazonía. Lo que empieza en Pucallpa se convierte en el estándar regional.</p>
+            <a class="pc-link" style="color:#f59e0b">En desarrollo<span style="display:block;width:28px;height:1px;background:#f59e0b;transition:width .3s"></span></a>
           </div>
         </div>
 
