@@ -37,43 +37,83 @@
     /* ── NAV ── */
     nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(2,2,2,.92);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 24px;
+      padding: 0 32px;
       display: flex; align-items: center; justify-content: space-between;
-      height: 64px;
+      height: 68px;
     }
+    /* Fondo glassmorphism con borde inferior sutil */
+    nav::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(10,10,10,.82);
+      backdrop-filter: blur(20px) saturate(160%);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      z-index: -1;
+    }
+
+    /* Brand */
     .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .nav-logo {
-      width: 36px; height: 36px; background: var(--green);
-      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    .nav-logo { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; }
+    .nav-name { font-size: 17px; font-weight: 800; color: var(--text); letter-spacing: -.3px; }
+
+    /* Links pill container */
+    .nav-links {
+      display: flex; align-items: center;
+      gap: 2px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 100px;
+      padding: 5px 6px;
     }
-    .nav-logo svg { width: 20px; height: 20px; fill: #020202; }
-    .nav-name { font-size: 18px; font-weight: 800; color: var(--text); }
-    .nav-links { display: flex; align-items: center; gap: 28px; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .2s; }
-    .nav-links a:hover { color: var(--text); }
+    .nav-links a {
+      color: rgba(255,255,255,.55);
+      text-decoration: none;
+      font-size: 13px; font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 100px;
+      transition: color .2s, background .2s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(255,255,255,.08);
+    }
+    /* CTA dentro del pill */
     .nav-cta {
-      background: var(--green); color: #020202 !important;
-      padding: 9px 20px; border-radius: 10px;
-      font-weight: 700 !important; font-size: 14px;
-      transition: background .2s, transform .1s;
+      background: var(--green) !important;
+      color: #090909 !important;
+      padding: 7px 18px !important;
+      border-radius: 100px;
+      font-weight: 700 !important;
+      font-size: 13px !important;
+      margin-left: 4px;
+      transition: background .2s, transform .15s, box-shadow .2s !important;
+      box-shadow: 0 0 0 0 rgba(99,215,42,0);
     }
-    .nav-cta:hover { background: var(--green-dark) !important; transform: scale(.98); }
-    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
-    .nav-toggle svg { width: 24px; height: 24px; fill: var(--text); }
+    .nav-cta:hover {
+      background: #7de832 !important;
+      transform: scale(.97) !important;
+      box-shadow: 0 0 18px rgba(99,215,42,.35) !important;
+    }
+
+    /* Hamburger */
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 6px; }
+    .nav-toggle svg { width: 22px; height: 22px; fill: var(--text); }
+
+    /* Mobile menu */
     .mobile-menu {
       display: none; flex-direction: column; gap: 0;
-      background: var(--dark); border-bottom: 1px solid var(--border);
+      background: rgba(10,10,10,.97);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(20px);
     }
     .mobile-menu.open { display: flex; }
     .mobile-menu a {
-      color: var(--muted); text-decoration: none; font-size: 15px;
-      font-weight: 500; padding: 14px 24px;
-      border-bottom: 1px solid var(--border); transition: color .2s;
+      color: rgba(255,255,255,.6); text-decoration: none; font-size: 15px;
+      font-weight: 500; padding: 15px 24px;
+      border-bottom: 1px solid rgba(255,255,255,.06); transition: color .2s, background .2s;
     }
-    .mobile-menu a:hover { color: var(--text); }
+    .mobile-menu a:hover { color: var(--text); background: rgba(255,255,255,.04); }
 
     /* ── HERO ── */
     .hero {
@@ -497,6 +537,11 @@
     .pay-name { font-size: 16px; font-weight: 700; }
 
     /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .nav-links a:not(.nav-cta) { display: none; }
+      .nav-links { background: none; border: none; padding: 0; gap: 0; }
+      .nav-cta { margin-left: 0; }
+    }
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .nav-toggle { display: block; }
